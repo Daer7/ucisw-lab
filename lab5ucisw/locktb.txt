@@ -1,0 +1,77 @@
+ENTITY locktb IS
+END locktb;
+ 
+ARCHITECTURE behavior OF locktb IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT lock
+    PORT(
+         CLK : IN  std_logic;
+         RST : IN  std_logic;
+         X : IN  std_logic_vector(7 downto 0);
+         Do_Rdy : IN  std_logic;
+         Y : OUT  std_logic
+        );
+    END COMPONENT;
+    
+
+   --Inputs
+   signal CLK : std_logic := '0';
+   signal RST : std_logic := '0';
+   signal X : std_logic_vector(7 downto 0) := X"00";
+   signal Do_Rdy : std_logic := '0';
+
+ 	--Outputs
+   signal Y : std_logic;
+
+   -- Clock period definitions
+   constant CLK_period : time := 50 ns;
+	
+	type byteArray is array (NATURAL range <>) of STD_LOGIC_VECTOR (7 downto 0);
+ 
+BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: lock PORT MAP (
+          CLK => CLK,
+          RST => RST,
+          X => X,
+          Do_Rdy => Do_Rdy,
+          Y => Y
+        );
+
+CLK <= not CLK after CLK_period/2;
+ 
+   stim_proc: process
+	
+	variable stimArray : byteArray(0 to 13) := (X"22" , X"35" , X"1C" , X"32" , X"21" , X"23" , X"22" , X"35" , X"1C" ,
+	X"32" , X"21" , X"1A" , X"22" , X"35");
+   begin		
+	wait for 100 ns ;
+	for i in stimArray 'RANGE loop
+		x <= stimArray (i) ;
+		wait for CLK_period ;
+		Do_Rdy <= '1' ;
+		wait for CLK_period ;
+		DO_Rdy <= '0' ;
+		wait for 2*CLK_period ;
+
+		x <= X"F0" ;
+		wait for CLK_period ;
+		DO_Rdy <= '1' ;
+		wait for CLK_period ;
+		DO_Rdy <= '0' ;
+		wait for 2*CLK_period ;
+
+		x <= stimArray (i) ;
+		wait for CLK_period ;
+		DO_Rdy <= '1' ;
+		wait for CLK_period ;
+		DO_Rdy <= '0' ;
+		wait for 2*CLK_period ;
+	end loop ;
+	wait ;
+   end process;
+
+END;

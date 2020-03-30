@@ -1,0 +1,101 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date:    23:45:39 12/10/2019 
+-- Design Name: 
+-- Module Name:    ffsm - Behavioral 
+-- Project Name: 
+-- Target Devices: 
+-- Tool versions: 
+-- Description: 
+--
+-- Dependencies: 
+--
+-- Revision: 
+-- Revision 0.01 - File Created
+-- Additional Comments: 
+--
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+library UNISIM;
+use UNISIM.VComponents.all;
+
+entity ffsm is
+    Port ( X : in  STD_LOGIC;
+           CE : in  STD_LOGIC;
+           CLK : in  STD_LOGIC;
+           RST : in  STD_LOGIC;
+           Y : out  STD_LOGIC);
+end ffsm;
+
+architecture Behavioral of ffsm is
+
+signal q_next: STD_LOGIC_VECTOR (2 downto 0):="000";
+signal D: STD_LOGIC_VECTOR(2 downto 0):="000";
+signal control:  STD_LOGIC_VECTOR(3 downto 0):="0000";
+
+begin
+
+	flip2 :FDCE port map(q_next(2), clk, ce, rst, D(2));
+	flip1 :FDCE port map(q_next(1), clk, ce, rst, D(1));
+	flip0 :FDCE port map(q_next(0), clk, ce, rst, D(0));
+	
+
+control <= q_next & X;
+
+with control select
+			D <= "000" when "0000",
+					"001" when "0001",
+					"010" when "0010",
+					"001" when "0011",
+					"011" when "0100",
+					"001" when "0101",
+					"000" when "0110",
+					"100" when "0111",
+					"000" when "1000",
+					"101" when "1001",
+					"000" when "1010",
+					"110" when "1011",
+					"000" when "1100",
+					"000" when "1101",
+					"000" when others;
+				
+OUTPUT_DECODE: process (q_next)
+begin
+	--insert statements to decode internal output signals
+	--below is simple example
+	if q_next = "110" then
+		Y <= '1';
+	else
+		Y <= '0';
+	end if;
+end process;
+
+end Behavioral;
+
+
+-- TESTBENCH
+
+   stim_proc: process
+	variable W : STD_LOGIC_VECTOR( 17 downto 0 ) := "101001110010011011";
+	
+   begin
+		for i in 17 downto 0 loop
+			X <= W(i);
+			wait for 50 ns;	
+		end loop;
+
+      wait;
+   end process;
+	
+	CLK <= not CLK after 25 ns;
+

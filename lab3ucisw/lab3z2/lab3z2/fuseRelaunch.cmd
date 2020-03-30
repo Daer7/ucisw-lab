@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -o "C:/Users/lab/Documents/lab3z2/lab3z2/fliptest_isim_fit.exe" -prj "C:/Users/lab/Documents/lab3z2/lab3z2/fliptest_fit.prj" "work.fliptest" 

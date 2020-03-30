@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -o "C:/Users/lab/Documents/lab6z0/zad1/zad1/spartantest_isim_beh.exe" -prj "C:/Users/lab/Documents/lab6z0/zad1/zad1/spartantest_beh.prj" "work.spartantest" 

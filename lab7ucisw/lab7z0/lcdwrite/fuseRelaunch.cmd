@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -o "C:/Users/lab/Documents/lab7z0/lcdwrite/writetbb_isim_beh.exe" -prj "C:/Users/lab/Documents/lab7z0/lcdwrite/writetbb_beh.prj" "work.writetbb" 

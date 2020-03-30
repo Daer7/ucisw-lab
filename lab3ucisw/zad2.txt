@@ -1,0 +1,78 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date:    15:39:03 11/26/2019 
+-- Design Name: 
+-- Module Name:    licznikrev - Behavioral 
+-- Project Name: 
+-- Target Devices: 
+-- Tool versions: 
+-- Description: 
+--
+-- Dependencies: 
+--
+-- Revision: 
+-- Revision 0.01 - File Created
+-- Additional Comments: 
+--
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+library UNISIM;
+use UNISIM.VComponents.all;
+
+entity licznikrev is
+    Port ( ce : in  STD_LOGIC;
+           clk : in  STD_LOGIC;
+           clr : in  STD_LOGIC;
+           dir : in  STD_LOGIC;
+           q : out  STD_LOGIC_VECTOR (2 downto 0));
+end licznikrev;
+
+architecture Behavioral of licznikrev is
+
+signal q_next: STD_LOGIC_VECTOR (2 downto 0):="000";
+signal D: STD_LOGIC_VECTOR(2 downto 0):="000";
+signal temp:  STD_LOGIC_VECTOR(3 downto 0):="0000";
+
+begin
+
+	flip2 :FDCE port map(q_next(2), clk, ce, clr, D(2));
+	flip1 :FDCE port map(q_next(1), clk, ce, clr, D(1));
+	flip0 :FDCE port map(q_next(0), clk, ce, clr, D(0));
+
+	temp(3 downto 1) <= q_next;
+	temp(0) <= DIR;
+
+	with temp select
+			D <= "110" when "0000" ,
+			 "001" when "1100" ,
+			 "010" when "0010",
+			 "011" when "0100",
+			 "100" when "0110",
+			 "101" when "1000",
+			 "111" when "1010",
+			 "000" when "1110",
+			 
+			 "111" when "0001",
+			 "101" when "1111",
+			 "100" when "1011",
+			 "011" when "1001",
+			 "010" when "0111",
+			 "001" when "0101",
+			 "110" when "0011",
+			 "000" when "1101",
+			 
+			 "000" when others;
+			 
+	q<=q_next;
+
+end Behavioral;

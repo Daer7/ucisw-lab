@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -o "C:/Users/lab/Documents/lab4z1/lab4z1/fsmt_isim_beh.exe" -prj "C:/Users/lab/Documents/lab4z1/lab4z1/fsmt_beh.prj" "work.fsmt" 

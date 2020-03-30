@@ -1,0 +1,9 @@
+select figure at 3061 1316 8 -wires -sn=1
+select figure at 2879 1586 8 -wires -sn=1
+select figure at 1468 1988 8 -wires -sn=1
+select figure at 2909 1248 8 -wires -sn=1
+select all in 2909 1233 3019 1248 -wires -enclosed -sn=1
+select figure at 3003 1131 8 -wires -sn=1
+select figure at 2389 769 8 -wires -sn=1
+select figure at 2389 722 8 -wires -sn=1
+select figure at 2933 794 8 -wires -sn=1

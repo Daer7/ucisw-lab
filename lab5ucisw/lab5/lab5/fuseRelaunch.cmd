@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -o "E:/ucisw/lab5ucisw/lab5/lab5/locktb_isim_beh.exe" -prj "E:/ucisw/lab5ucisw/lab5/lab5/locktb_beh.prj" "work.locktb" 

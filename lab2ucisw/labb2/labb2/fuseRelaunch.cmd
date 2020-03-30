@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -o "C:/Users/lab/Documents/labb2/labb2/schemat_schemat_sch_tb_isim_fit.exe" -prj "C:/Users/lab/Documents/labb2/labb2/schemat_schemat_sch_tb_fit.prj" "work.schemat_schemat_sch_tb" 
